@@ -1,0 +1,24 @@
+﻿@model IEnumerable<Web_DienTu_LTDN.ViewModels.HangHoaViewModel>
+<h6>Có <b></b>@Model.Count() sản phẩm </h6>
+@foreach (var item in Model)
+{
+    <div class="col-md-6 col-lg-6 col-xl-4">
+        <div class="rounded position-relative fruite-item">
+            <div class="fruite-img">
+                <a asp-action="Detail" asp-controller="HangHoa" asp-route-id="@item.maHangHoa">
+                <img src="~/Hinh/HangHoa/@item.hinhAnh" class="img-fluid w-100 rounded-top" alt="@item.tenHangHoa">
+                </a>
+            </div>
+            <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">@item.tenLoai</div>
+            <div class="p-4 border border-secondary border-top-0 rounded-bottom">
+                <a asp-action="Detail" asp-controller="HangHoa" asp-route-id="@item.maHangHoa">
+                <h4>@item.tenHangHoa</h4></a>
+                <p>@item.moTaNgan</p>
+                <div class="d-flex justify-content-between flex-lg-wrap">
+                    <p class="text-dark fs-5 fw-bold mb-0">$@item.donGia</p>
+                    <a asp-action="AddToCart" asp-controller="Cart" asp-route-id="@item.maHangHoa" class="btn border border-secondary rounded-pill px-3 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i>Đưa vào giỏ</a>
+                </div>
+            </div>
+        </div>
+    </div>
+}
