@@ -1,6 +1,7 @@
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Web_DienTu_LTDN.Data;
 using Web_DienTu_LTDN.Helpers;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,6 +11,12 @@ builder.Services.AddDbContext<NamShop2025Context>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("HsShop"));
 });
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(options =>
+    {
+        options.LoginPath = "/KhachHang/DangNhap"; // Đường dẫn trang đăng nhập
+        options.AccessDeniedPath = "/AccessDenied";
+    });
 builder.Services.AddDistributedMemoryCache();
 
 builder.Services.AddSession(options =>
@@ -36,7 +43,7 @@ app.UseStaticFiles();
 app.UseRouting();
 app.UseSession();
 
-
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(
